@@ -16,7 +16,16 @@ export class PhotoComponent implements OnInit {
   files: File[] = [];
 
   constructor(private photoService:PhotoService){}
+  
   onSelect(event:any) {
+    let files:File[]=event.addedFiles;
+    files.forEach(file=>{
+      let fileReader=new FileReader;
+      fileReader.onloadend=()=>{
+        let str=fileReader.result as string;
+      };
+      fileReader.readAsDataURL(file);
+    })
     console.log(event);
     this.files.push(...event.addedFiles);
   }
